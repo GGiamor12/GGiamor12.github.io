@@ -16,3 +16,25 @@ The statistics contains:
 Statistics plays a crucial role in a wide range of fields, including science, business, social sciences, economics, medicine, engineering, and more. 
 It helps researchers, analysts, and decision-makers make sense of data and make informed choices based on evidence rather than intuition or guesswork. 
 Statistical methods are also used to test hypotheses, estimate parameters, and quantify uncertainty in various contexts.
+
+#### **What's the difference between a Descriptive and Inferential Statistics?**
+Descriptive statistics and inferential statistics are two branches of statistics used to analyze and summarize data, but they serve different purposes and have distinct characteristics:
+- **Descriptive statistics** is used to describe or summarize a collection of data in a way that makes it more meaningful and useful.
+- **Inferential statistics** is used to draw inferences or conclusions about a population based on a sample of data taken from the population in question.
+
+#### **Desribe the concept of population, sample attribute, level of measurement and Dataset.**
+1. **Population**: The population refers to the entire group that is the subject of a study or research. 
+It includes all individuals, items, or data points that meet specific criteria or characteristics of interest.
+For example, if you're studying the average income of all households in a country, the population would be all the households in that country.  
+2. **Sample**: A sample is a subset of the population. Researchers often work with samples because it's often impractical or too expensive to study an entire population.
+The sample should ideally be representative of the population, meaning it should accurately reflect the characteristics and diversity of the larger group.
+Using the example above, if you can't study all households in a country, you might select a random sample of households to estimate the average income.
+3. **Attribute**: An attribute is a characteristic or feature of an object or individual within a dataset. In statistical terms, attributes are often referred to as variables.
+For example, in a dataset about people, attributes could include age, gender, income, education level, etc.
+4. **Variable**: Variables are the specific measures or characteristics that can be observed and recorded. They can take on different values for different data points in a dataset.
+Variables can be categorized into different types based on their level of measurement (see the next point).
+5. **Level of measurement**: The level of measurement refers to the mathematical nature of a variable or the way it's measured.
+There are four levels of measurement: **nominal**, **ordinal**, **interval**, and **ratio**.
+6. **Dataset**: A dataset is a collection of data points or observations. It can be represented in the form of a table or matrix, where each row represents a data point and each column represents a variable.
+
+
