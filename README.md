@@ -68,3 +68,33 @@ Then, each block is divided into subplots, and subjects within each subplot are 
 However, the order of treatments is not randomized, and the treatments are applied in a specific sequence.
 7. **Latin Square Design**: In a Latin square design, study subjects are first divided into blocks based on a specific characteristic or attribute.
 Then, each block is divided into subplots, and subjects within each subplot are randomly assigned to different treatment groups.
+
+
+## JavaScipt code for the homework
+In this section I will show you the code I used to solve the homework.
+<div>
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Disegna le figure</title>
+</head>
+<body>
+<canvas id = "myCanvas" width = "200" height = "200"><\canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var circle = canvas.getContext("2d");
+circle.beginPath();
+circle.arc(100, 100, 50, 0, 2 * Math.PI);
+circle.fillStyle = "red";
+circle.fill();
+circle.strokeStyle = "black";
+circle.lineWidth = 5;
+circle.stroke();
+circle.closePath();
+
+</script>
+</body>
+</html>
+</div>
