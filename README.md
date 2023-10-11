@@ -1,9 +1,7 @@
 # Statistic's Homework 
 Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other things. 
 
-[//]:<details>
-[//]:<summary>HomeWork 1</summary>
-[//]:</details> 
+
 
 ## HomeWork 1
 #### **What's statistics?**
