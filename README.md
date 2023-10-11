@@ -138,7 +138,7 @@ Code:
 </body>
 </html>
 ```
-![Homework in C#](Homework/Homework1.png)  
+![Homework in C#](Images/Homework1.png)  
 
 **In C#**:
 ```
