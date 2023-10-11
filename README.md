@@ -138,8 +138,38 @@ Code:
 </body>
 </html>
 ```
+![Homework in C#](Homework/Homework1.png)  
 
 **In C#**:
 ```
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+
+namespace HomeWork1
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        
+
+        private void panel1_Paint_1(object sender, PaintEventArgs e)
+        {
+            Pen rect = new Pen(Color.FromArgb(255, 0, 155, 0), 5);
+            Pen line = new Pen(Color.Red, 5);
+            Pen circle = new Pen(Color.Blue, 3);
+            Pen point = new Pen(Color.Black, 3);
+
+            e.Graphics.DrawRectangle(rect, 10, 10, 30, 90);
+            e.Graphics.DrawLine(line, 100, 50, 200, 50);
+            e.Graphics.DrawEllipse(circle, 250, 30, 60, 60);
+            e.Graphics.DrawEllipse(point, 350, 60, 1, 1);
+        }
+    }
+}
 
 ```
