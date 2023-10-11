@@ -1,5 +1,5 @@
 # Statistic's Homework 
-Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other thinks.  
+Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other things.  
 ## HomeWork 1
 #### **What's statistics?**
 Statistics is a **branch of mathematics** and a field of study that involves collecting, analyzing, interpreting, presenting, and organizing data.
@@ -74,3 +74,5 @@ Then, each block is divided into subplots, and subjects within each subplot are 
 In this section I will show you the code I used to solve the homework.
 
 **Link to HTML's page**: [Link](Homework/Homework1.html)
+
+Code:  
