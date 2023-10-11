@@ -137,10 +137,12 @@ Code:
 </script>
 </body>
 </html>
-```
+```  
+
+**In C#**:  
+
 ![Homework in C#](Images/Homework1.png)  
 
-**In C#**:
 ```
 using System;
 using System.Drawing;
