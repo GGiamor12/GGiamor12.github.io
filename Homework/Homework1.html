@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Disegna le figure</title>
+    <h1>
+        Homework in JavaScript
+    </h1>
+</head>
+<body>
+<canvas id = "myCanvas" width = "2000" height = "2000"><\canvas>
+
+<script>
+    var canvas = document.getElementById("myCanvas");
+    var circle = canvas.getContext("2d");
+    var line = canvas.getContext("2d");
+    var rect = canvas.getContext("2d");
+    var point = canvas.getContext("2d");
+
+    //Inizializzo Cerchio
+    circle.beginPath();
+    circle.arc(100, 100, 50, 0, 2 * Math.PI);
+    circle.fillStyle = "red";
+    circle.fill();
+    circle.strokeStyle = "black";
+    circle.lineWidth = 5;
+    circle.stroke();
+    circle.closePath();
+
+    //Inizializzo line
+    line.strokeStyle = "black";
+    line.lineWidth = 2;
+    line.beginPath();
+    line.moveTo(300,50);
+    line.lineTo(175,200);
+    line.stroke();
+
+    //Inizializzo Rettangolo
+    rect.strokeStyle = "blue";
+    rect.fillStyle = "red";
+    rect.lineWidth = 6;
+    rect.fillRect(50,300,90,50);
+    rect.strokeRect(50,300,90,50);
+
+    //Inizializzo Punto
+    point.beginPath();
+    point.arc(250, 325, 5, 0, 2 * Math.PI);
+    point.fillStyle = "green";
+    point.fill();
+    point.strokeStyle = "green";
+    point.lineWidth = 1;
+    point.stroke();
+    point.closePath();
+
+
+</script>
+</body>
+</html>
