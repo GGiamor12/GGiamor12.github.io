@@ -1,1 +1,23 @@
 <!DOCTYPE html>
+<html>
+<head>
+<title>Disegna le figure</title>
+</head>
+<body>
+<canvas id = "myCanvas" width = "200" height = "200"><\canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+var circle = canvas.getContext("2d");
+circle.beginPath();
+circle.arc(100, 100, 50, 0, 2 * Math.PI);
+circle.fillStyle = "red";
+circle.fill();
+circle.strokeStyle = "black";
+circle.lineWidth = 5;
+circle.stroke();
+circle.closePath();
+
+</script>
+</body>
+</html>
