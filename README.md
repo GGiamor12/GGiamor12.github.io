@@ -1,9 +1,7 @@
 # Statistic's Homework 
 Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other things. 
 
-<details>
-<summary>HomeWork 1</summary>
-<div class = "markdown">
+
 
 #### **What's statistics?**
 Statistics is a **branch of mathematics** and a field of study that involves collecting, analyzing, interpreting, presenting, and organizing data.
@@ -177,7 +175,6 @@ namespace HomeWork1
 
 ```
 
-</div>
-</details>
+
 
 
