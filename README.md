@@ -1,9 +1,10 @@
 # Statistic's Homework 
 Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other things. 
 
+<details>
+<summary>HomeWork 1</summary>
+<div class = "markdown">
 
-
-## HomeWork 1
 #### **What's statistics?**
 Statistics is a **branch of mathematics** and a field of study that involves collecting, analyzing, interpreting, presenting, and organizing data.
 Its primary purpose is to extract meaningful information and insights from data, which can be used for making informed decisions, drawing conclusions, and understanding patterns or trends in various phenomena.
@@ -175,3 +176,8 @@ namespace HomeWork1
 }
 
 ```
+
+</div>
+</details>
+
+
