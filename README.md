@@ -1,7 +1,9 @@
 # Statistic's Homework 
 Hi! I'm Andrea Maggiore (**ID**: 1947898), and this is my personal blog where I will publish my statistic's homework and other things. 
 
-
+<details>
+<summary>HomeWork 1</summary>
+<div class = "markdown">
 
 #### **What's statistics?**
 Statistics is a **branch of mathematics** and a field of study that involves collecting, analyzing, interpreting, presenting, and organizing data.
@@ -75,7 +77,7 @@ Then, each block is divided into subplots, and subjects within each subplot are 
 ## JavaScipt code for the homework
 In this section I will show you the code I used to solve the homework.
 
-**Link to HTML's page**: [Link](Homework/Homework1.html)
+**Link to HTML's page**: [Link](Homework1/Homework.html)
 
 Code:  
 ```
@@ -156,8 +158,6 @@ namespace HomeWork1
             InitializeComponent();
         }
 
-        
-
         private void panel1_Paint_1(object sender, PaintEventArgs e)
         {
             Pen rect = new Pen(Color.FromArgb(255, 0, 155, 0), 5);
@@ -174,7 +174,6 @@ namespace HomeWork1
 }
 
 ```
-
-
-
+/div>
+</details>
 

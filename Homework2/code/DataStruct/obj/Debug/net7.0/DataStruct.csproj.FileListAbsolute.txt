@@ -1,0 +1,15 @@
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/bin/Debug/net7.0/DataStruct
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/bin/Debug/net7.0/DataStruct.deps.json
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/bin/Debug/net7.0/DataStruct.runtimeconfig.json
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/bin/Debug/net7.0/DataStruct.dll
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/bin/Debug/net7.0/DataStruct.pdb
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.csproj.AssemblyReference.cache
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.GeneratedMSBuildEditorConfig.editorconfig
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.AssemblyInfoInputs.cache
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.AssemblyInfo.cs
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.csproj.CoreCompileInputs.cache
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.dll
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/refint/DataStruct.dll
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.pdb
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/DataStruct.genruntimeconfig.cache
+/Users/andrea/Developer/ggiamor12.github.io/Homework2/code/DataStruct/obj/Debug/net7.0/ref/DataStruct.dll

@@ -1,8 +1,0 @@
-<details>
-<summary>HomeWork 1</summary>
-<div class = "markdown">
-
-markdown
-
-</div>
-</details>

@@ -1,0 +1,31 @@
+Homework 2
+
+- Please, complete our survey (or add new variables), so we have data
+
+1.
+Choose 3 variables from our surveys
+- Qualitative
+- Quantitative discrete
+- Quantitative continuous
+
+create the most efficient algorithms to compute the frequency (absolute/relative/percentage) distribution of:
+
+- the 3 variables
+- the joint distribution of 2 variables (use a general logic, where variables could be any number)
+
+
+2.
+For the following most important data structures (or others that you may want to suggest) find out how to:
+
+-loop (break/continue)
+-add/remove/get/check the existence of element
+
+data structures:
+array, list, dictionary, sorted list, HashSet, sorted set, queue, stack, linked list
+
+Note in a very concise way your finding in your Js Cheatsheet, and, in case a corresponding Js object does not exists, create a simple equivalent class.
+
+3.
+Generate N uniform random variate [0,1) and determine the distribution into interval class [i/k, (i+1)/k), i = 0,..., k-1.
+Play with N and k values and draw some conclusion on the shape
+of the distribution.
