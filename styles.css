@@ -1,0 +1,11 @@
+.title-with-image {
+    display: flex;
+    align-items: center;
+}
+
+.circular-image {
+    width: 110px; /* Imposta la larghezza desiderata per l'immagine */
+    height: 90px; /* Imposta l'altezza desiderata per l'immagine */
+    border-radius: 10%; /* Rende l'immagine circolare */
+    margin-right: 20px; /* Aggiunge spazio tra l'immagine e il testo del titolo */
+}
