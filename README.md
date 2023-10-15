@@ -182,6 +182,6 @@ namespace HomeWork1
 <div class = "markdown">
 
 # Probability
-
+pooo
 </div>
 </details>
