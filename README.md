@@ -174,6 +174,14 @@ namespace HomeWork1
 }
 
 ```
-/div>
+</div>
 </details>
 
+<details>
+<summary>HomeWork 2</summary>
+<div class = "markdown">
+
+# Probability
+
+</div>
+</details>
