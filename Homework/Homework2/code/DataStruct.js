@@ -12,7 +12,10 @@ JavaScript have the list, for initialize the list, we can use the following code
 */
 var list = [];
 var list = [1,2,3,4,5];
-console.log(list);
+for (var i = 0; i < list.length; i++) {
+    if(list[i] == 3)
+        console.log(list[i]);
+}
 
 //Dictionary
 /**
@@ -20,7 +23,11 @@ JavaScript have the dictionary, for initialize the dictionary, we can use the fo
 */
 var dict = {};
 var dict = {"a":1,"b":2,"c":3};
-console.log(dict);
+for (var key in dict) {
+    if(dict[key] < 2 && key == "a")
+        console.log(dict[key]);
+        break;
+}
 
 //sorted list
 /**
@@ -66,6 +73,12 @@ mySet.add(2);
 mySet.add(3);
 
 console.log(mySet);
+for (const item of mySet) {
+    if(item%2 == 0)
+        console.log(item);
+    if(item == 5)
+      continue;
+}
 
 //sorted HashSet
 /**

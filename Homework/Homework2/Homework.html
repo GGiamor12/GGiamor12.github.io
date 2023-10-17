@@ -3,5 +3,797 @@
     <head>
     <title>Homework 2</title>
     <h1>
-        work in progress
+    Homework 2
     </h1>
+    <h2>
+        First answer
+    </h2>
+    <body>
+        For my research I took into analysis: <ul>
+            <li>Backgraund Degree from Professional Life as qualitative variable</li>
+            <li>Ambitius from Professional Life as discrete quantitative variable</li>
+            <li>Weight from Professional Life as continues quantitative variable</li>
+            </ul>
+    
+
+    </body>
+    JavaScript code:
+    <font color = "green">
+        <pre>
+const fs = require('fs').promises;
+
+// Calcola le frequenze delle parole in un testo
+function calculateWordFrequencies(text) {
+  const wordFrequencies = {};
+
+  const lines = text.split('\n');
+
+  for (const line of lines) {
+    const word = line.toLowerCase().trim();
+
+    if (wordFrequencies[word]) {
+      wordFrequencies[word]++;
+    } else {
+      wordFrequencies[word] = 1;
+    }
+  }
+
+  return wordFrequencies;
+}
+
+// Stampa le frequenze delle parole con un titolo
+function printWordFrequencies(frequencies, title) {
+  console.log(`\n${title}\n`);
+  const totalWords = Object.values(frequencies).reduce((acc, value) => acc + value, 0);
+
+  for (const word in frequencies) {
+    const frequency = frequencies[word];
+    const relativeFrequency = frequency / totalWords;
+    const percentage = (relativeFrequency * 100).toFixed(2);
+    console.log(`${word}: ${frequency} (Relative: ${relativeFrequency.toFixed(2)}, Percentage: ${percentage}%)`);
+  }
+}
+
+// Calcola la distribuzione congiunta dei dati
+function calculateJointDistribution(dataArrays) {
+  const jointDistribution = {};
+
+  const numDataArrays = dataArrays.length;
+
+  for (let i = 0; i < dataArrays[0].length; i++) {
+    const values = dataArrays.map((dataArray) =>
+      dataArray[i].toLowerCase().trim()
+    );
+
+    const key = values.join('|');
+
+    if (!jointDistribution[key]) {
+      jointDistribution[key] = 1;
+    } else {
+      jointDistribution[key]++;
+    }
+  }
+
+  return jointDistribution;
+}
+
+
+// Legge un file, calcola le frequenze delle parole e stampa i risultati con un titolo
+async function readFileAndProcess(filename, title) {
+  try {
+    const fileData = await fs.readFile(filename, 'utf8');
+    const wordFrequencies = calculateWordFrequencies(fileData);
+    printWordFrequencies(wordFrequencies, title);
+    return fileData;
+  } catch (error) {
+    console.error(`Error reading file "${filename}"`, error);
+    throw error;
+  }
+}
+
+
+// Stampa la distribuzione congiunta con un titolo
+function printJointDistribution(jointDistribution, title) {
+    console.log(`\n${title}\n`);
+    for (const key in jointDistribution) {
+      const frequency = jointDistribution[key];
+      const values = key.split('|');
+  
+      const totalFrequencies = Object.values(jointDistribution).reduce(
+        (acc, value) => acc + value,
+        0
+      );
+      const relativeFrequency = frequency / totalFrequencies;
+      const percentage = (relativeFrequency * 100).toFixed(2);
+      console.log(
+        `Data: ${values.join(', ')} \t Frequency: ${frequency}, Relative Frequency: ${relativeFrequency.toFixed(2)}%, Percentage: ${percentage}%`
+      );
+    }
+  }
+
+// Funzione principale che gestisce l'elaborazione dei file e le stampe
+async function main() {
+  try {
+    const [degreesData, ambitiousnessData, weightData] = await Promise.all([
+      readFileAndProcess('weights.txt', 'Weight Frequencies:'),
+      readFileAndProcess('degrees.txt', 'Background Degree:'),
+      readFileAndProcess('ambitiousness.txt', 'Ambitious Values:'),
+    ]);
+
+    const jointDistribution = calculateJointDistribution([ambitiousnessData.split('\n'), weightData.split('\n')]);
+
+  } catch (error) {
+    console.error('General Error:', error);
+  }
+}
+
+
+
+        </pre>
+    </font>
+
+
+C# code:
+<font color = "green">
+<pre>
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    // Calcola le frequenze delle parole in un testo
+    static Dictionary<string, int> CalculateWordFrequencies(string text)
+    {
+        Dictionary<string, int> wordFrequencies = new Dictionary<string, int>();
+
+        string[] lines = text.Split('\n');
+
+        foreach (string line in lines)
+        {
+            string word = line.ToLower().Trim();
+
+            if (wordFrequencies.ContainsKey(word))
+            {
+                wordFrequencies[word]++;
+            }
+            else
+            {
+                wordFrequencies[word] = 1;
+            }
+        }
+
+        return wordFrequencies;
+    }
+
+    // Stampa le frequenze delle parole con un titolo
+    static void PrintWordFrequencies(Dictionary<string, int> frequencies, string title)
+    {
+        Console.WriteLine($"\n{title}\n");
+        int totalWords = frequencies.Values.Sum();
+
+        foreach (var word in frequencies)
+        {
+            int frequency = word.Value;
+            double relativeFrequency = (double)frequency / totalWords;
+            string percentage = (relativeFrequency * 100).ToString("F2");
+            Console.WriteLine($"{word.Key}: {frequency} (Relative: {relativeFrequency.ToString("F2")}, Percentage: {percentage}%)");
+        }
+    }
+
+    // Calcola la distribuzione congiunta dei dati
+    static Dictionary<string, int> CalculateJointDistribution(List<string[]> dataArrays)
+    {
+        Dictionary<string, int> jointDistribution = new Dictionary<string, int>();
+
+        int numDataArrays = dataArrays.Count;
+
+        for (int i = 0; i < dataArrays[0].Length; i++)
+        {
+            List<string> values = dataArrays.Select(dataArray => dataArray[i].ToLower().Trim()).ToList();
+            string key = string.Join("|", values);
+
+            if (jointDistribution.ContainsKey(key))
+            {
+                jointDistribution[key]++;
+            }
+            else
+            {
+                jointDistribution[key] = 1;
+            }
+        }
+
+        return jointDistribution;
+    }
+
+    // Stampa la distribuzione congiunta con un titolo
+    static void PrintJointDistribution(Dictionary<string, int> jointDistribution, string title)
+    {
+        Console.WriteLine($"\n{title}\n");
+        int totalFrequencies = jointDistribution.Values.Sum();
+
+        foreach (var item in jointDistribution)
+        {
+            int frequency = item.Value;
+            string[] values = item.Key.Split('|');
+
+            double relativeFrequency = (double)frequency / totalFrequencies;
+            string percentage = (relativeFrequency * 100).ToString("F2");
+
+            Console.WriteLine($"Data: {string.Join(", ", values)} \t Frequency: {frequency}, Relative Frequency: {relativeFrequency.ToString("F2")}, Percentage: {percentage}%");
+        }
+    }
+
+    // Legge un file, calcola le frequenze delle parole e stampa i risultati con un titolo
+    static string ReadFileAndProcess(string filename, string title)
+    {
+        try
+        {
+            string fileData = File.ReadAllText(filename);
+            var wordFrequencies = CalculateWordFrequencies(fileData);
+            PrintWordFrequencies(wordFrequencies, title);
+            return fileData;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error reading file \"{filename}\": {ex.Message}");
+            throw ex;
+        }
+    }
+
+    static void Main()
+    {
+        try
+        {
+            var weightData = ReadFileAndProcess("weights.txt", "Weight:");
+            var degreesData = ReadFileAndProcess("degrees.txt", "Background Degree Frequencies:");
+            var ambitiousnessData = ReadFileAndProcess("ambitiousness.txt", "Ambitious Values Frequencies:");  
+            var jointDistribution = CalculateJointDistribution(new List<string[]>{ ambitiousnessData.Split('\n'), weightData.Split('\n') });
+
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine("General Error: " + ex.Message);
+        }
+    }
+}
+
+</pre>
+</font>
+
+Results:
+<font color = "blue">
+<pre>
+Weight:
+None : 34 (Relative:0.55, Percentage: 55,7%)
+66 : 2 (Relative:0.03, Percentage: 3,23%)
+96 : 1 (Relative:0.02, Percentage: 1,61%)
+84 : 1 (Relative:0.02, Percentage: 1,61%)
+45 : 1 (Relative:0.02, Percentage: 1,61%)
+100 : 1 (Relative:0.02, Percentage: 1,61%)
+63 : 2 (Relative:0.03, Percentage: 3,23%)
+70 : 3 (Relative:0.05, Percentage: 4,84%)
+72 : 2 (Relative:0.03, Percentage: 3,23%)
+73 : 2 (Relative:0.03, Percentage: 3,23%)
+80 : 1 (Relative:0.02, Percentage: 1,61%)
+65 : 1 (Relative:0.02, Percentage: 1,61%)
+54 : 1 (Relative:0.02, Percentage: 1,61%)
+85 : 1 (Relative:0.02, Percentage: 1,61%)
+58 : 1 (Relative:0.02, Percentage: 1,61%)
+77 : 1 (Relative:0.02, Percentage: 1,61%)
+75 : 1 (Relative:0.02, Percentage: 1,61%)
+88 : 1 (Relative:0.02, Percentage: 1,61%)
+78 : 1 (Relative:0.02, Percentage: 1,61%)
+79 : 1 (Relative:0.02, Percentage: 1,61%)
+90 : 1 (Relative:0.02, Percentage: 1,61%)
+62 : 1 (Relative:0.02, Percentage: 1,61%)
+
+Background Degree:
+engineering in computer science: 2 (Relative: 0.04, Percentage: 3.77%)
+computer and system engineering: 1 (Relative: 0.02, Percentage: 1.89%)
+computer science: 29 (Relative: 0.55, Percentage: 54.72%)
+computer science and engineering: 1 (Relative: 0.02, Percentage: 1.89%)
+computer engineering: 11 (Relative: 0.21, Percentage: 20.75%)
+software and information engineering: 1 (Relative: 0.02, Percentage: 1.89%)
+information engineering, computer science and statistics: 1 (Relative: 0.02, Percentage: 1.89%)
+computer sciwence: 1 (Relative: 0.02, Percentage: 1.89%)
+international relations: 1 (Relative: 0.02, Percentage: 1.89%)
+cybersecurity: 3 (Relative: 0.06, Percentage: 5.66%)
+security of information technologies: 1 (Relative: 0.02, Percentage: 1.89%)
+conputer engineering: 1 (Relative: 0.02, Percentage: 1.89%)
+
+Ambitious Values:
+3: 5 (Relative: 0.09, Percentage: 9.43%)
+4: 19 (Relative: 0.36, Percentage: 35.85%)
+5: 28 (Relative: 0.53, Percentage: 52.83%)
+6: 1 (Relative: 0.02, Percentage: 1.89%)
+
+</font>
+
+<h2>Second answer</h2>
+JavaScript:
+<font color = "green">
+<pre>
+    //Array
+/**
+JavaScript have the array, for initialize the array, we can use the following code:
+*/
+var arr = new Array();
+var arr = new Array(1,2,3,4,5);
+console.log(arr);
+
+//List
+/**
+JavaScript have the list, for initialize the list, we can use the following code:
+*/
+var list = [];
+var list = [1,2,3,4,5];
+for (var i = 0; i < list.length; i++) {
+    if(list[i] == 3)
+        console.log(list[i]);
+}
+
+//Dictionary
+/**
+JavaScript have the dictionary, for initialize the dictionary, we can use the following code:
+*/
+var dict = {};
+var dict = {"a":1,"b":2,"c":3};
+for (var key in dict) {
+    if(dict[key] < 2 && key == "a")
+        console.log(dict[key]);
+        break;
+}
+
+//sorted list
+/**
+JavaScript haven't the sorted list, for initialize the sorted list, we can create a class to implement it:
+*/
+
+class SortedList{
+    constructor(list){
+        this.list = list.sort();
+
+    }
+
+    add(item){
+        this.list.push(item);
+        this.list.sort();
+    
+    }
+
+    remove(item){
+        this.list.splice(this.list.indexOf(item),1);
+    
+    }
+
+    clear(){
+        this.list = [];
+    
+    }
+}
+
+var sortedList = new SortedList([1,4,2,6,3]);
+console.log(sortedList.list);
+
+//HashSet
+/**
+JavaScript have the HashSet, for initialize the HashSet, we can call a class to implement it:
+*/
+
+const mySet = new Set();
+mySet.add(1);
+mySet.add(5);
+mySet.add(5);
+mySet.add(2);
+mySet.add(3);
+
+console.log(mySet);
+for (const item of mySet) {
+    if(item%2 == 0)
+        console.log(item);
+    if(item == 5)
+      continue;
+}
+
+//sorted HashSet
+/**
+JavaScript haven't the sorted HashSet, for initialize the sorted HashSet, we can create a class to implement it:
+*/
+
+class SortedSet{
+
+    constructor(value = NaN){
+        this.list = [];
+        this.list.push(value);
+        this.list.sort();
+
+        this.set = new Set();
+        for (var i = 0; i < this.list.length; i++) {
+            this.set.add(this.list[i]);
+        }
+            
+    }
+
+    add(item){
+        this.list.push(item);
+        this.list.sort();
+        for (var i = 0; i < this.list.length; i++) {
+            this.set.add(this.list[i]);
+        }
+    
+    }
+
+    remove(item){
+        this.list.splice(this.list.indexOf(item),1);
+        this.set.delete(item);
+    
+    }
+
+    
+}
+
+//queue
+/**
+JavaScript haven't the queue, for initialize the queue, we can call a class to implement it:
+*/
+
+class Queue{
+    constructor(value = NaN){
+        this.list = [value];
+    }
+
+    enqueue(item){
+        this.list.push(item);
+    }
+
+    dequeue(){
+        this.list.shift();
+    }
+
+    clear(){
+        this.list = [];
+    }
+
+}
+
+//stack
+/**
+JavaScript have the stack, for initialize the stack, we can call a class to implement it:
+*/
+
+
+const stack = [];
+
+
+stack.push(1);
+stack.push(2);
+stack.push(3);
+
+
+const elementoRimosso = stack.pop(); 
+
+console.log(elementoRimosso); 
+console.log(stack); 
+
+//Linked link
+/**
+JavaScript haven't the linked link, for initialize the linked link, we can create a class to implement it:
+*/
+
+class Node {
+    constructor(value) {
+      this.value = value;
+      this.next = null;
+    }
+  }
+  
+  class LinkedList {
+    constructor() {
+      this.head = null;
+      this.tail = null;
+    }
+  
+    append(value) {
+      const newNode = new Node(value);
+      if (!this.head) {
+        this.head = newNode;
+        this.tail = newNode;
+      } else {
+        this.tail.next = newNode;
+        this.tail = newNode;
+      }
+    }
+  
+    prepend(value) {
+      const newNode = new Node(value);
+      newNode.next = this.head;
+      this.head = newNode;
+      if (!this.tail) {
+        this.tail = newNode;
+      }
+    }
+  
+    delete(value) {
+      if (!this.head) {
+        return;
+      }
+  
+      if (this.head.value === value) {
+        this.head = this.head.next;
+        if (!this.head) {
+          this.tail = null;
+        }
+        return;
+      }
+  
+      let current = this.head;
+      while (current.next) {
+        if (current.next.value === value) {
+          current.next = current.next.next;
+          if (!current.next) {
+            this.tail = current;
+          }
+          return;
+        }
+        current = current.next;
+      }
+    }
+  
+    find(value) {
+      let current = this.head;
+      while (current) {
+        if (current.value === value) {
+          return current;
+        }
+        current = current.next;
+      }
+      return null;
+    }
+  }
+
+const myList = new LinkedList();
+
+myList.append(1);
+myList.append(2);
+myList.append(3);
+
+myList.prepend(0);
+
+myList.delete(2);
+
+const foundNode = myList.find(3);
+
+console.log(foundNode.value); 
+
+</pre>
+</font>
+
+C#:
+<font color = "green">
+<pre>
+using System;
+
+
+class Program{
+    
+    static void Main(string[] args){
+        //array
+        int[] array = new int[5];
+        for (int i = 0; i < array.Length; i++){
+            array[i] = i;
+        }
+        Console.WriteLine("Array:");
+        foreach (int i in array){
+            Console.WriteLine(i);
+            if (i == 3){
+                break;
+            }
+        }
+
+        Console.WriteLine("\nList:");
+        //list
+        List<string> list = new List<string>();
+        list.Add("a");
+        list.Add("b");
+        list.Add("c");
+
+        foreach (string s in list){
+            Console.WriteLine(s);
+            if (s == "b"){
+                continue;
+            }
+        }
+
+        Console.WriteLine("\nDictionary:");
+        //dictionary
+        System.Collections.Generic.Dictionary<string, int> dictionary = new System.Collections.Generic.Dictionary<string, int>();
+        dictionary.Add("one", 1);
+        dictionary.Add("two", 2);
+        dictionary.Add("three", 3);
+
+        foreach (System.Collections.Generic.KeyValuePair<string, int> pair in dictionary){
+            Console.WriteLine(pair.Key + " : " + pair.Value);
+        }
+        Console.WriteLine("\nHashSet:");
+        //HashSet
+        HashSet<string> hashSet = new HashSet<string>();
+        hashSet.Add("a");
+        hashSet.Add("b");
+        hashSet.Add("c");
+        hashSet.Add("a");
+        Console.WriteLine("Count: " + hashSet.Count);
+        foreach (string s in hashSet){
+            Console.WriteLine(s);
+        }
+
+        Console.WriteLine("\nSortedSet:");
+        //SortedSet
+        SortedSet<string> sortedSet = new SortedSet<string>();
+        sortedSet.Add("c");
+        sortedSet.Add("b");
+        sortedSet.Add("a");
+        sortedSet.Add("a");
+        Console.WriteLine("Count: " + sortedSet.Count);
+        foreach (string s in sortedSet){
+            Console.WriteLine(s);
+        }
+
+        Console.WriteLine("\nQueue:");
+        //Queue
+        Queue<int> queue = new Queue<int>();
+        queue.Enqueue(2);
+        queue.Enqueue(4);
+        queue.Enqueue(6);
+        queue.Enqueue(8);
+        queue.Dequeue();
+
+        foreach (int i in queue){
+            Console.WriteLine(i);
+
+        }
+
+        Console.WriteLine("\nStack:");
+        //Stack
+        Stack<int> stack = new Stack<int>();
+        stack.Push(2);
+        stack.Push(4);
+        stack.Push(6);
+        stack.Push(8);
+        stack.Pop();
+
+        foreach (int i in stack){
+            Console.WriteLine(i);
+            
+        }
+
+        Console.WriteLine("\nLinkedList:");
+        //LinkedList
+        LinkedList<int> linkedList = new LinkedList<int>();
+        linkedList.AddLast(2);
+        linkedList.AddLast(4);
+        linkedList.AddLast(6);
+        linkedList.AddLast(8);
+        linkedList.RemoveFirst();
+
+        foreach (int i in linkedList){
+            Console.WriteLine(i);
+        }
+
+    }
+}
+</pre>
+</font>
+
+<h2>Third answer</h2>
+JavaScript:
+<font color = "green">
+<pre>
+    function generateAndAnalyzeRandomData(N, k) {
+        const data = [];
+      
+        // Generate N uniform random numbers
+        for (let i = 0; i < N; i++) {
+          data.push(Math.random());
+        }
+      
+        // Initialize an array to hold the counts for each interval
+        const intervalCounts = new Array(k).fill(0);
+      
+        // Calculate the counts for each interval
+        for (let value of data) {
+          const intervalIndex = Math.floor(value * k);
+          intervalCounts[intervalIndex]++;
+        }
+      
+        // Output the counts for each interval
+        for (let i = 0; i < k; i++) {
+          const lowerBound = i / k;
+          const upperBound = (i + 1) / k;
+          const count = intervalCounts[i];
+          console.log(`[${lowerBound.toFixed(2)} - ${upperBound.toFixed(2)}): ${count}`);
+        }
+      }
+      
+      // Example usage with N = 10000 and k = 10
+      generateAndAnalyzeRandomData(10000, 10);
+</pre>      
+</font>
+    
+JavaScript Answer:
+<font color = "blue"><pre>
+[0.00 - 0.10): 1029
+[0.10 - 0.20): 980
+[0.20 - 0.30): 951
+[0.30 - 0.40): 1043
+[0.40 - 0.50): 993
+[0.50 - 0.60): 977
+[0.60 - 0.70): 998
+[0.70 - 0.80): 1004
+[0.80 - 0.90): 1039
+[0.90 - 1.00): 986
+    </pre>
+</font>
+C#:
+<font color = "green">
+<pre>
+using System;
+using System.Collections.Generic;
+
+class Program
+{
+    static void Main()
+    {
+        int N = 10000; // Number of random numbers to generate
+        int k = 10;    // Number of intervals
+
+        List<double> data = new List<double>();
+
+        Random random = new Random();
+
+        // Generate N uniform random numbers in the range [0, 1)
+        for (int i = 0; i < N; i++)
+        {
+            data.Add(random.NextDouble());
+        }
+
+        int[] intervalCounts = new int[k];
+
+        // Calculate the counts for each interval
+        foreach (var value in data)
+        {
+            int intervalIndex = (int)(value * k);
+            intervalCounts[intervalIndex]++;
+        }
+
+        // Output the counts for each interval
+        for (int i = 0; i < k; i++)
+        {
+            double lowerBound = i / (double)k;
+            double upperBound = (i + 1) / (double)k;
+            int count = intervalCounts[i];
+            Console.WriteLine($"[{lowerBound:F2} - {upperBound:F2}): {count}");
+        }
+    }
+}
+</pre>
+</font>
+C# answer:
+<font color = "blue">
+<div>
+[0,00 - 0,10): 1074
+[0,10 - 0,20): 973
+[0,20 - 0,30): 999
+[0,30 - 0,40): 1016
+[0,40 - 0,50): 983
+[0,50 - 0,60): 956
+[0,60 - 0,70): 1036
+[0,70 - 0,80): 964
+[0,80 - 0,90): 1010
+[0,90 - 1,00): 989 
+</div>
+</font>
+
+
+</html>

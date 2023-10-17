@@ -25,7 +25,11 @@ class Program{
         Console.WriteLine("Array:");
         foreach (int i in array){
             Console.WriteLine(i);
+            if (i == 3){
+                break;
+            }
         }
+
         Console.WriteLine("\nList:");
         //list
         List<string> list = new List<string>();
@@ -35,7 +39,11 @@ class Program{
 
         foreach (string s in list){
             Console.WriteLine(s);
+            if (s == "b"){
+                continue;
+            }
         }
+
         Console.WriteLine("\nDictionary:");
         //dictionary
         System.Collections.Generic.Dictionary<string, int> dictionary = new System.Collections.Generic.Dictionary<string, int>();
@@ -57,6 +65,7 @@ class Program{
         foreach (string s in hashSet){
             Console.WriteLine(s);
         }
+
         Console.WriteLine("\nSortedSet:");
         //SortedSet
         SortedSet<string> sortedSet = new SortedSet<string>();
@@ -68,6 +77,7 @@ class Program{
         foreach (string s in sortedSet){
             Console.WriteLine(s);
         }
+
         Console.WriteLine("\nQueue:");
         //Queue
         Queue<int> queue = new Queue<int>();
@@ -79,7 +89,9 @@ class Program{
 
         foreach (int i in queue){
             Console.WriteLine(i);
+
         }
+
         Console.WriteLine("\nStack:");
         //Stack
         Stack<int> stack = new Stack<int>();
@@ -91,7 +103,9 @@ class Program{
 
         foreach (int i in stack){
             Console.WriteLine(i);
+            
         }
+
         Console.WriteLine("\nLinkedList:");
         //LinkedList
         LinkedList<int> linkedList = new LinkedList<int>();
@@ -104,8 +118,6 @@ class Program{
         foreach (int i in linkedList){
             Console.WriteLine(i);
         }
-
-        
 
     }
 }
