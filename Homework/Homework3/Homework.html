@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homework 3</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <h1>Homework 3</h1>
+    javaScript code:
+    <font color = "green">
+        <pre>
+const numSystems = 5;
+const numAttacks = 20;
+const penetrationProbability = 0.5;
+
+function simulateSystemTrajectory() {
+    const scores = [0];
+
+    for (let i = 1; i <= numAttacks; i++) {
+        if (Math.random() <= penetrationProbability) {
+            scores.push(scores[scores.length - 1] + 1);
+        } else {
+            scores.push(scores[scores.length - 1] - 1);
+        }
+    }
+
+    return scores;
+}
+
+const systemTrajectories = [];
+for (let i = 0; i < numSystems; i++) {
+    systemTrajectories.push(simulateSystemTrajectory());
+}
+
+const ctx = document.getElementById('scoreChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+        datasets: systemTrajectories.map((trajectory, systemIndex) => ({
+            label: `System ${systemIndex + 1}`,
+            data: trajectory,
+            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+            fill: false,
+        })),
+    },
+    options: {
+        scales: {
+            x: {
+                min: 0,
+                max: numAttacks,
+                ticks: {
+                    stepSize: 1,
+                },
+                title: {
+                    display: true,
+                    text: 'Number of Attacks',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Number of Attacks Successful',
+                },
+            },
+        },
+    },
+});
+        </pre>
+    </font>
+    <canvas id="scoreChart" width="400" height="400"></canvas>
+
+    <script>
+        const numSystems = 5; 
+        const numAttacks = 20; 
+        const penetrationProbability = 0.5; 
+
+        function simulateSystemTrajectory() {
+            const scores = [0]; 
+
+            for (let i = 1; i <= numAttacks; i++) {
+                if (Math.random() <= penetrationProbability) {
+                    scores.push(scores[scores.length - 1] + 1); 
+                } else {
+                    scores.push(scores[scores.length - 1] - 1); 
+                }
+            }
+
+            return scores;
+        }
+
+        const systemTrajectories = [];
+        for (let i = 0; i < numSystems; i++) {
+            systemTrajectories.push(simulateSystemTrajectory());
+        }
+
+        const ctx = document.getElementById('scoreChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+                datasets: systemTrajectories.map((trajectory, systemIndex) => ({
+                    label: `System ${systemIndex + 1}`,
+                    data: trajectory,
+                    borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+                    fill: false,
+                })),
+            },
+            options: {
+                scales: {
+                    x: {
+                        min: 0,
+                        max: numAttacks,
+                        ticks: {
+                            stepSize: 1,
+                        },
+                        title: {
+                            display: true,
+                            text: 'Number of Attacks',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Number of Attacks Successful',
+                        },
+                    },
+                },
+            },
+        });
+    </script>
+</body>
+</html>
