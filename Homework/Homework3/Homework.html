@@ -88,6 +88,10 @@
     <div class="resizable-frame">
         <canvas id="normalizedChart" width="400" height="200"></canvas>
     </div>
+    <div class="resizable-frame">
+        <canvas id="histogramChart" width="400" height="200"></canvas>
+    </div>
+
 
     <script>
     function simulateSystemTrajectory() {
@@ -103,6 +107,7 @@
 
         return scores;
     }
+
 
     for (let i = 0; i < numSystems; i++) {
         systemTrajectories.push(simulateSystemTrajectory());
@@ -125,43 +130,146 @@
         return normalizedRatio;
     }
 
+    function calculateHistogram(data, numBins) {
+        const min = Math.min(...data);
+        const max = Math.max(...data);
+        const binSize = (max - min) / numBins;
+        const bins = Array.from({ length: numBins }, (_, i) => ({
+            min: min + i * binSize,
+            max: min + (i + 1) * binSize,
+            count: 0,
+        }));
+
+        data.forEach((value) => {
+            const binIndex = Math.floor((value - min) / binSize);
+            if (binIndex >= 0 && binIndex < numBins) {
+                bins[binIndex].count++;
+            }
+        });
+
+        return bins;
+    }
+
     const cumulativeFrequencies = systemTrajectories.map(simulateCumulativeFrequency);
     const relativeFrequencies = systemTrajectories.map(simulateRelativeFrequency);
     const normalizedRatios = systemTrajectories.map(simulateNormalizedRatio);
 
-    function createChart(ctx, data, label, borderColor) {
-        return new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
-                datasets: data.map((trajectory, systemIndex) => ({
-                    label: `System ${systemIndex + 1}`,
-                    data: trajectory,
-                    borderColor: borderColor || `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
-                    fill: false,
-                })),
-            },
-            options: {
-                // Configura le opzioni del grafico come desiderato
-            },
-        });
-    }
-
     const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
-    createChart(cumulativeCtx, cumulativeFrequencies, 'Cumulative Frequency');
-
     const relativeCtx = document.getElementById('relativeChart').getContext('2d');
-    createChart(relativeCtx, relativeFrequencies, 'Relative Frequency');
-
     const normalizedCtx = document.getElementById('normalizedChart').getContext('2d');
-    createChart(normalizedCtx, normalizedRatios, 'Normalized Ratio');
+    const histogramCtx = document.getElementById('histogramChart').getContext('2d');
+
+    const numBins = 10; // Number of bins for the histogram
+
+    const cumulativeHistogramData = calculateHistogram(cumulativeFrequencies[0], numBins);
+    const relativeHistogramData = calculateHistogram(relativeFrequencies[0], numBins);
+    const normalizedHistogramData = calculateHistogram(normalizedRatios[0], numBins);
+
+    new Chart(cumulativeCtx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+            datasets: cumulativeFrequencies.map((trajectory, systemIndex) => ({
+                label: `System ${systemIndex + 1}`,
+                data: trajectory,
+                borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+                fill: false,
+            })),
+        },
+        options: {
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Cumulative Frequency',
+                    },
+                },
+            },
+        },
+    });
+
+    new Chart(relativeCtx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+            datasets: relativeFrequencies.map((trajectory, systemIndex) => ({
+                label: `System ${systemIndex + 1}`,
+                data: trajectory,
+                borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+                fill: false,
+            })),
+        },
+        options: {
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Relative Frequency',
+                    },
+                },
+            },
+        },
+    });
+
+    new Chart(normalizedCtx, {
+        type: 'line',
+        data: {
+            labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+            datasets: normalizedRatios.map((trajectory, systemIndex) => ({
+                label: `System ${systemIndex + 1}`,
+                data: trajectory,
+                borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+                fill: false,
+            })),
+        },
+        options: {
+            scales: {
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Normalized Ratio',
+                    },
+                },
+            },
+        },
+    });
+
+    new Chart(histogramCtx, {
+        type: 'bar',
+        data: {
+            labels: cumulativeHistogramData.map((bin, index) => `Bin ${index + 1}`),
+            datasets: [
+                {
+                    label: 'Cumulative Frequency Histogram',
+                    data: cumulativeHistogramData.map((bin) => bin.count),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1,
+                },
+            ],
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stepSize: 1,
+                    title: {
+                        display: true,
+                        text: 'Frequency',
+                    },
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Bins',
+                    },
+                },
+            },
+        },
+    });
     </script>
 
-
-
-<h2>graphs made with C#:</h2>
-in progress...
-
+<p><strong>Source code (javaScript and C#):</strong> <a href="codici.html"><strong>Link</a></strong></a></p>
 
 <h2>Is what you see what you expected? What about the averages of the distributions and the shapes of the histograms: 
     do you see regularities, differences and can you attempt to explain what you see or guessing what are 

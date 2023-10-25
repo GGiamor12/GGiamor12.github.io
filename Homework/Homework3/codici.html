@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Statistic's Homework</title>
+        <h1>Source code</Source></h1>
+        <h2>JavaScript:</h2>
+        <h3>First part:</h3>
+        <pre>
+const numSystems = 5; 
+const numAttacks = 20; 
+const penetrationProbability = 0.5; 
+
+function simulateSystemTrajectory() {
+    const scores = [0]; 
+
+    for (let i = 1; i <= numAttacks; i++) {
+        if (Math.random() <= penetrationProbability) {
+            scores.push(scores[scores.length - 1] + 1); 
+        } else {
+            scores.push(scores[scores.length - 1] - 1); 
+        }
+    }
+
+    return scores;
+}
+
+const systemTrajectories = [];
+for (let i = 0; i < numSystems; i++) {
+    systemTrajectories.push(simulateSystemTrajectory());
+}
+
+const ctx = document.getElementById('scoreChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+        datasets: systemTrajectories.map((trajectory, systemIndex) => ({
+            label: `System ${systemIndex + 1}`,
+            data: trajectory,
+            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+            fill: false,
+        })),
+    },
+    options: {
+        scales: {
+            x: {
+                min: 0,
+                max: numAttacks,
+                ticks: {
+                    stepSize: 1,
+                },
+                title: {
+                    display: true,
+                    text: 'Number of Attacks',
+                },
+            },
+            y: {
+                title: {
+                    display: true,
+                    text: 'Number of Attacks Successful',
+                },
+            },
+        },
+    },
+});
+        </pre>
+<h3>Second part:</h3>
+<pre>
+function simulateSystemTrajectory() {
+    const scores = [0];
+
+    for (let i = 1; i <= numAttacks; i++) {
+        if (Math.random() <= penetrationProbability) {
+            scores.push(scores[scores.length - 1] + 1);
+        } else {
+            scores.push(scores[scores.length - 1] - 1);
+        }
+    }
+
+    return scores;
+}
+
+
+for (let i = 0; i < numSystems; i++) {
+    systemTrajectories.push(simulateSystemTrajectory());
+}
+
+function simulateCumulativeFrequency(trajectory) {
+    const cumulativeFrequency = trajectory.map((score, index) => {
+        return trajectory.slice(0, index + 1).reduce((acc, val) => acc + val, 0);
+    });
+    return cumulativeFrequency;
+}
+
+function simulateRelativeFrequency(trajectory) {
+    const relativeFrequency = trajectory.map((score) => score / numAttacks);
+    return relativeFrequency;
+}
+
+function simulateNormalizedRatio(trajectory) {
+    const normalizedRatio = trajectory.map((score) => score / Math.sqrt(numAttacks));
+    return normalizedRatio;
+}
+
+function calculateHistogram(data, numBins) {
+    const min = Math.min(...data);
+    const max = Math.max(...data);
+    const binSize = (max - min) / numBins;
+    const bins = Array.from({ length: numBins }, (_, i) => ({
+        min: min + i * binSize,
+        max: min + (i + 1) * binSize,
+        count: 0,
+    }));
+
+    data.forEach((value) => {
+        const binIndex = Math.floor((value - min) / binSize);
+        if (binIndex >= 0 && binIndex < numBins) {
+            bins[binIndex].count++;
+        }
+    });
+
+    return bins;
+}
+
+const cumulativeFrequencies = systemTrajectories.map(simulateCumulativeFrequency);
+const relativeFrequencies = systemTrajectories.map(simulateRelativeFrequency);
+const normalizedRatios = systemTrajectories.map(simulateNormalizedRatio);
+
+const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
+const relativeCtx = document.getElementById('relativeChart').getContext('2d');
+const normalizedCtx = document.getElementById('normalizedChart').getContext('2d');
+const histogramCtx = document.getElementById('histogramChart').getContext('2d');
+
+const numBins = 10; // Number of bins for the histogram
+
+const cumulativeHistogramData = calculateHistogram(cumulativeFrequencies[0], numBins);
+const relativeHistogramData = calculateHistogram(relativeFrequencies[0], numBins);
+const normalizedHistogramData = calculateHistogram(normalizedRatios[0], numBins);
+
+new Chart(cumulativeCtx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+        datasets: cumulativeFrequencies.map((trajectory, systemIndex) => ({
+            label: `System ${systemIndex + 1}`,
+            data: trajectory,
+            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+            fill: false,
+        })),
+    },
+    options: {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'Cumulative Frequency',
+                },
+            },
+        },
+    },
+});
+
+new Chart(relativeCtx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+        datasets: relativeFrequencies.map((trajectory, systemIndex) => ({
+            label: `System ${systemIndex + 1}`,
+            data: trajectory,
+            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+            fill: false,
+        })),
+    },
+    options: {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'Relative Frequency',
+                },
+            },
+        },
+    },
+});
+
+new Chart(normalizedCtx, {
+    type: 'line',
+    data: {
+        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+        datasets: normalizedRatios.map((trajectory, systemIndex) => ({
+            label: `System ${systemIndex + 1}`,
+            data: trajectory,
+            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+            fill: false,
+        })),
+    },
+    options: {
+        scales: {
+            y: {
+                title: {
+                    display: true,
+                    text: 'Normalized Ratio',
+                },
+            },
+        },
+    },
+});
+
+new Chart(histogramCtx, {
+    type: 'bar',
+    data: {
+        labels: cumulativeHistogramData.map((bin, index) => `Bin ${index + 1}`),
+        datasets: [
+            {
+                label: 'Cumulative Frequency Histogram',
+                data: cumulativeHistogramData.map((bin) => bin.count),
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+                stepSize: 1,
+                title: {
+                    display: true,
+                    text: 'Frequency',
+                },
+            },
+            x: {
+                title: {
+                    display: true,
+                    text: 'Bins',
+                },
+            },
+        },
+    },
+});
+</pre>
+
+<h2>C#:</h2>
+<h3>First part:</h3>
+<pre>
+using System;
+using System.Windows.Forms;
+using ZedGraph;
+
+namespace WindowsFormsApp
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            CreateGraph(panel1); 
+        }
+
+        private void CreateGraph(Panel panel)
+        {
+            ZedGraphControl zedGraphControl = new ZedGraphControl();
+
+            zedGraphControl.Dock = DockStyle.Fill;
+
+            panel.Controls.Add(zedGraphControl);
+
+            // Crea un oggetto GraphPane per il grafico
+            GraphPane myPane = zedGraphControl.GraphPane;
+            
+            // Aggiungi dati al grafico (ad esempio, punti su una curva)
+            PointPairList list = new PointPairList();
+            for (double x = 0; x < 10; x += 0.1)
+            {
+                double y = Math.Sin(x);
+                list.Add(x, y);
+            }
+            LineItem myCurve = myPane.AddCurve("Sine Wave", list, System.Drawing.Color.Blue, SymbolType.None);
+            
+            
+            myPane.XAxis.Title.Text = "X-Axis";
+            myPane.YAxis.Title.Text = "Y-Axis";
+
+            
+            zedGraphControl.AxisChange();
+        }
+    }
+}
+</pre>
+<h3>Second part:</h3>
+<pre>
+    using System;
+    using System.Windows.Forms;
+    using System.Windows.Forms.DataVisualization.Charting;
+    
+    namespace SecuritySimulation
+    {
+        public partial class Form1 : Form
+        {
+            private const int numSystems = 5;
+            private const int numAttacks = 20;
+            private const double penetrationProbability = 0.5;
+    
+            private Chart cumulativeChart;
+            private Chart relativeChart;
+            private Chart normalizedChart;
+            private Chart histogramChart;
+    
+            public Form1()
+            {
+                InitializeComponent();
+    
+                cumulativeChart = CreateLineChart(cumulativePanel, "Cumulative Frequency");
+                relativeChart = CreateLineChart(relativePanel, "Relative Frequency");
+                normalizedChart = CreateLineChart(normalizedPanel, "Normalized Ratio");
+                histogramChart = CreateBarChart(histogramPanel, "Histogram");
+    
+                PopulateCharts();
+            }
+    
+            private Chart CreateLineChart(Panel panel, string title)
+            {
+                Chart chart = new Chart();
+                chart.Parent = panel;
+                chart.Dock = DockStyle.Fill;
+    
+                ChartArea chartArea = new ChartArea();
+                chartArea.AxisX.Title = "Number of Attacks";
+                chartArea.AxisY.Title = title;
+                chart.ChartAreas.Add(chartArea);
+    
+                Legend legend = new Legend();
+                chart.Legends.Add(legend);
+    
+                return chart;
+            }
+    
+            private Chart CreateBarChart(Panel panel, string title)
+            {
+                Chart chart = new Chart();
+                chart.Parent = panel;
+                chart.Dock = DockStyle.Fill;
+    
+                ChartArea chartArea = new ChartArea();
+                chartArea.AxisX.Title = "Bins";
+                chartArea.AxisY.Title = "Frequency";
+                chart.ChartAreas.Add(chartArea);
+    
+                Series series = new Series();
+                series.ChartType = SeriesChartType.Bar;
+                chart.Series.Add(series);
+    
+                return chart;
+            }
+    
+            private void PopulateCharts()
+            {
+                var systemTrajectories = new int[numSystems][];
+                var cumulativeFrequencies = new int[numSystems][];
+                var relativeFrequencies = new double[numSystems][];
+                var normalizedRatios = new double[numSystems][];
+    
+                for (int i = 0; i < numSystems; i++)
+                {
+                    systemTrajectories[i] = SimulateSystemTrajectory();
+                    cumulativeFrequencies[i] = SimulateCumulativeFrequency(systemTrajectories[i]);
+                    relativeFrequencies[i] = SimulateRelativeFrequency(systemTrajectories[i]);
+                    normalizedRatios[i] = SimulateNormalizedRatio(systemTrajectories[i]);
+                }
+    
+                for (int i = 0; i < numSystems; i++)
+                {
+                    cumulativeChart.Series.Add($"System {i + 1}");
+                    cumulativeChart.Series[i].Points.DataBindY(cumulativeFrequencies[i]);
+                    cumulativeChart.Series[i].BorderWidth = 2;
+                    cumulativeChart.Series[i].ChartType = SeriesChartType.Line;
+    
+                    relativeChart.Series.Add($"System {i + 1}");
+                    relativeChart.Series[i].Points.DataBindY(relativeFrequencies[i]);
+                    relativeChart.Series[i].BorderWidth = 2;
+                    relativeChart.Series[i].ChartType = SeriesChartType.Line;
+    
+                    normalizedChart.Series.Add($"System {i + 1}");
+                    normalizedChart.Series[i].Points.DataBindY(normalizedRatios[i]);
+                    normalizedChart.Series[i].BorderWidth = 2;
+                    normalizedChart.Series[i].ChartType = SeriesChartType.Line;
+                }
+    
+                // Histogram for the first system
+                int numBins = 10;
+                var cumulativeHistogramData = CalculateHistogram(cumulativeFrequencies[0], numBins);
+                histogramChart.Series[0].Points.DataBindY(cumulativeHistogramData);
+            }
+    
+            private int[] SimulateSystemTrajectory()
+            {
+                int[] scores = new int[numAttacks + 1];
+                scores[0] = 0;
+    
+                Random random = new Random();
+                for (int i = 1; i <= numAttacks; i++)
+                {
+                    if (random.NextDouble() <= penetrationProbability)
+                    {
+                        scores[i] = scores[i - 1] + 1;
+                    }
+                    else
+                    {
+                        scores[i] = scores[i - 1] - 1;
+                    }
+                }
+    
+                return scores;
+            }
+    
+            private int[] SimulateCumulativeFrequency(int[] trajectory)
+            {
+                int[] cumulativeFrequency = new int[numAttacks + 1];
+                for (int i = 0; i <= numAttacks; i++)
+                {
+                    cumulativeFrequency[i] = 0;
+                    for (int j = 0; j <= i; j++)
+                    {
+                        cumulativeFrequency[i] += trajectory[j];
+                    }
+                }
+                return cumulativeFrequency;
+            }
+    
+            private double[] SimulateRelativeFrequency(int[] trajectory)
+            {
+                double[] relativeFrequency = new double[numAttacks + 1];
+                for (int i = 0; i <= numAttacks; i++)
+                {
+                    relativeFrequency[i] = (double)trajectory[i] / numAttacks;
+                }
+                return relativeFrequency;
+            }
+    
+            private double[] SimulateNormalizedRatio(int[] trajectory)
+            {
+                double[] normalizedRatio = new double[numAttacks + 1];
+                for (int i = 0; i <= numAttacks; i++)
+                {
+                    normalizedRatio[i] = (double)trajectory[i] / Math.Sqrt(numAttacks);
+                }
+                return normalizedRatio;
+            }
+    
+            private int[] CalculateHistogram(int[] data, int numBins)
+            {
+                int min = data[0];
+                int max = data[numAttacks];
+                int binSize = (max - min) / numBins;
+                int[] bins = new int[numBins];
+    
+                for (int i = 0; i <= numAttacks; i++)
+                {
+                    int binIndex = (data[i] - min) / binSize;
+                    if (binIndex >= 0 && binIndex < numBins)
+                    {
+                        bins[binIndex]++;
+                    }
+                }
+    
+                return bins;
+            }
+        }
+    }
+    
+
+</pre>
+    </head>
+</html>
