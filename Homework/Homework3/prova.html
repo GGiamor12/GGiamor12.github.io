@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Homework 3</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .resizable-frame {
+            resize: both;
+            overflow: auto;
+            width: 500px;
+            height: 300px;
+            border: 1px solid black;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Homework 3</h1>
+    <div class="resizable-frame" id="cumulative-frame">
+        <canvas id="cumulativeChart" width="400" height="200"></canvas>
+        <canvas id="cumulativeHistogram" width="200" height="200"></canvas>
+    </div>
+    <div class="resizable-frame" id="relative-frame">
+        <canvas id="relativeChart" width="400" height="200"></canvas>
+        <canvas id="relativeHistogram" width="200" height="200"></canvas>
+    </div>
+    <div class="resizable-frame" id="normalized-frame">
+        <canvas id="normalizedChart" width="400" height="200"></canvas>
+        <canvas id="normalizedHistogram" width="200" height="200"></canvas>
+    </div>
+
+    <script>
+        document.querySelectorAll('.resizable-frame').forEach(function (frame) {
+            frame.addEventListener('mousedown', startResize);
+            frame.addEventListener('mouseup', stopResize);
+            frame.addEventListener('mousemove', resize);
+        });
+
+        let clicked = false;
+        let x, y, initialWidth, initialHeight, frame;
+
+        function startResize(e) {
+            clicked = true;
+            x = e.clientX;
+            y = e.clientY;
+            initialWidth = e.target.clientWidth;
+            initialHeight = e.target.clientHeight;
+            frame = e.target;
+        }
+
+        function stopResize() {
+            clicked = false;
+        }
+
+        function resize(e) {
+            if (clicked) {
+                const newWidth = initialWidth + (e.clientX - x);
+                const newHeight = initialHeight + (e.clientY - y);
+                frame.style.width = newWidth + 'px';
+                frame.style.height = newHeight + 'px';
+            }
+        }
+
+        // Aggiungi il codice per i grafici e istogrammi qui
+        // ...
+
+        // Ad esempio, puoi utilizzare Chart.js per creare un grafico lineare:
+        const ctx = document.getElementById('cumulativeChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Day 1', 'Day 2', 'Day 3', 'Day 4', 'Day 5'],
+                datasets: [{
+                    label: 'System 1',
+                    data: [10, 15, 7, 12, 20],
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false,
+                }],
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Days',
+                        },
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Success',
+                        },
+                    },
+                },
+            },
+        });
+
+        // Implementa il disegno dell'istogramma verticale
+        const histogramCtx = document.getElementById('cumulativeHistogram').getContext('2d');
+        drawVerticalHistogram(histogramCtx);
+
+        function drawVerticalHistogram(context) {
+            // Implementa qui il disegno dell'istogramma basato sui dati
+            // Ad esempio, disegna rettangoli per rappresentare i dati.
+        }
+    </script>
+</body>
+</html>

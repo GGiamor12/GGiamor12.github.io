@@ -3,72 +3,22 @@
 <head>
     <title>Homework 3</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .resizable-frame {
+            resize: both;
+            overflow: auto;
+            width: 500px;
+            height: 300px;
+        }
+    </style>
 </head>
 <body>
     <h1>Homework 3</h1>
-    javaScript code:
-    <font color = "green">
-        <pre>
-const numSystems = 5;
-const numAttacks = 20;
-const penetrationProbability = 0.5;
-
-function simulateSystemTrajectory() {
-    const scores = [0];
-
-    for (let i = 1; i <= numAttacks; i++) {
-        if (Math.random() <= penetrationProbability) {
-            scores.push(scores[scores.length - 1] + 1);
-        } else {
-            scores.push(scores[scores.length - 1] - 1);
-        }
-    }
-
-    return scores;
-}
-
-const systemTrajectories = [];
-for (let i = 0; i < numSystems; i++) {
-    systemTrajectories.push(simulateSystemTrajectory());
-}
-
-const ctx = document.getElementById('scoreChart').getContext('2d');
-const chart = new Chart(ctx, {
-    type: 'line',
-    data: {
-        labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
-        datasets: systemTrajectories.map((trajectory, systemIndex) => ({
-            label: `System ${systemIndex + 1}`,
-            data: trajectory,
-            borderColor: `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
-            fill: false,
-        })),
-    },
-    options: {
-        scales: {
-            x: {
-                min: 0,
-                max: numAttacks,
-                ticks: {
-                    stepSize: 1,
-                },
-                title: {
-                    display: true,
-                    text: 'Number of Attacks',
-                },
-            },
-            y: {
-                title: {
-                    display: true,
-                    text: 'Number of Attacks Successful',
-                },
-            },
-        },
-    },
-});
-        </pre>
-    </font>
-    <canvas id="scoreChart" width="200" height="100"></canvas>
+    <h1>Es.1:</h1>
+    <h2>graphs made with JavaScript:</h2>
+    <div class="resizable-frame">
+        <canvas id="scoreChart" width="400" height="200"></canvas>
+    </div>>
 
     <script>
         const numSystems = 5; 
@@ -129,5 +79,138 @@ const chart = new Chart(ctx, {
             },
         });
     </script>
+    <div class="resizable-frame">
+        <canvas id="cumulativeChart" width="400" height="200"></canvas>
+    </div>
+    <div class="resizable-frame">
+        <canvas id="relativeChart" width="400" height="200"></canvas>
+    </div>
+    <div class="resizable-frame">
+        <canvas id="normalizedChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+    function simulateSystemTrajectory() {
+        const scores = [0];
+
+        for (let i = 1; i <= numAttacks; i++) {
+            if (Math.random() <= penetrationProbability) {
+                scores.push(scores[scores.length - 1] + 1);
+            } else {
+                scores.push(scores[scores.length - 1] - 1);
+            }
+        }
+
+        return scores;
+    }
+
+    for (let i = 0; i < numSystems; i++) {
+        systemTrajectories.push(simulateSystemTrajectory());
+    }
+
+    function simulateCumulativeFrequency(trajectory) {
+        const cumulativeFrequency = trajectory.map((score, index) => {
+            return trajectory.slice(0, index + 1).reduce((acc, val) => acc + val, 0);
+        });
+        return cumulativeFrequency;
+    }
+
+    function simulateRelativeFrequency(trajectory) {
+        const relativeFrequency = trajectory.map((score) => score / numAttacks);
+        return relativeFrequency;
+    }
+
+    function simulateNormalizedRatio(trajectory) {
+        const normalizedRatio = trajectory.map((score) => score / Math.sqrt(numAttacks));
+        return normalizedRatio;
+    }
+
+    const cumulativeFrequencies = systemTrajectories.map(simulateCumulativeFrequency);
+    const relativeFrequencies = systemTrajectories.map(simulateRelativeFrequency);
+    const normalizedRatios = systemTrajectories.map(simulateNormalizedRatio);
+
+    function createChart(ctx, data, label, borderColor) {
+        return new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: numAttacks + 1 }, (_, i) => i.toString()),
+                datasets: data.map((trajectory, systemIndex) => ({
+                    label: `System ${systemIndex + 1}`,
+                    data: trajectory,
+                    borderColor: borderColor || `rgba(${Math.random() * 255},${Math.random() * 255},${Math.random() * 255},1)`,
+                    fill: false,
+                })),
+            },
+            options: {
+                // Configura le opzioni del grafico come desiderato
+            },
+        });
+    }
+
+    const cumulativeCtx = document.getElementById('cumulativeChart').getContext('2d');
+    createChart(cumulativeCtx, cumulativeFrequencies, 'Cumulative Frequency');
+
+    const relativeCtx = document.getElementById('relativeChart').getContext('2d');
+    createChart(relativeCtx, relativeFrequencies, 'Relative Frequency');
+
+    const normalizedCtx = document.getElementById('normalizedChart').getContext('2d');
+    createChart(normalizedCtx, normalizedRatios, 'Normalized Ratio');
+    </script>
+
+
+
+<h2>graphs made with C#:</h2>
+in progress...
+
+
+<h2>Is what you see what you expected? What about the averages of the distributions and the shapes of the histograms: 
+    do you see regularities, differences and can you attempt to explain what you see or guessing what are 
+    the "theoretical" limit distribution, when as N increases, and you can make the distribution simulation "more detailed" by increasing M ? 
+    </h2>
+    <p>Yes, in both cases is what I'm expected, I see regularities in all of the graphs, although the generation of values is random, I will have a constant distribution </p>
+
+<h1>Es.2:</h1>
+<h2>Recall briefly the definition and math notions relevant to "probability space" and make some simple examples, indicating among the triple of the space the meaning of each element in your particular example. 
+    If you wanted to model probabilistically the homework Exercise 1, explain what are the 3 sets of your probability space and their elements, in this case. 
+</h2>
+<p>
+    A "probability space" is a mathematical structure used to model probabilistic situations. It consists of three key elements: a sample space, a sigma-algebra of sets, and a probability measure.
+    <ol>
+        <li>
+            <strong>Sample Space (Ω)</strong>:
+        The sample space represents the set of all possible outcomes or results of an experiment or probabilistic phenomenon. It is usually denoted by the symbol Ω. For example, in the roll of a fair die, Ω could be the set {1, 2, 3, 4, 5, 6}, as these are all possible outcomes of the die roll.
+        </li>
+        <li>
+            <strong>Sigma-Algebra of Sets (F)</strong>:
+        The sigma-algebra (or sigma) is a set of subsets of the sample space Ω. This sigma specifies which sets of outcomes are "measurable" and can be assigned a probability. For example, in the case of rolling a die, some measurable subsets could be {1, 2, 3} or {2, 4, 6}, while other non-measurable sets could be {1, 3, 5, 7}.
+        </li>
+        <li>
+            <strong>Probability Measure (P)</strong>:
+        The probability measure assigns a numerical value to each measurable subset of the sigma F, representing the probability that an outcome belongs to that set. This measure is denoted by P. For example, P({1, 2, 3}) could represent the probability of getting a result among 1, 2, and 3 in a die roll.
+        </li>
+        
+    </ol>
+    <strong>Probability Measure (P)</strong>:
+    The probability measure assigns a numerical value to each measurable subset of the sigma F, representing the probability that an outcome belongs to that set. This measure is denoted by P. For example, P({1, 2, 3}) could represent the probability of getting a result among 1, 2, and 3 in a die roll.
+    Regarding your Exercise 1 and how to probabilistically model the situation, here's a possible example:
+    
+    Situation: Tossing a fair coin.
+    <ol>
+        <li>
+            <strong>Sample Space (Ω)</strong>:
+        Ω represents all possible outcomes of tossing a fair coin. In this case, Ω = {Heads, Tails}.
+        </li>
+        <li>
+            <strong>Sigma-Algebra of Sets (F)</strong>:
+        The sigma F will contain all subsets of Ω. So, F could be {{}, {Heads}, {Tails}, {Heads, Tails}}, as these are the measurable subsets of Ω.
+        </li>
+        <li>
+            <strong>Probability Measure (P)</strong>:
+        Since we're dealing with a fair coin, the probability of getting Heads or Tails is the same. Therefore, P({Heads}) = P({Tails}) = 0.5, and P({Heads, Tails}) = 1, where P represents the probability.
+    </ol>
+   
+    This is a simple example of how a probability space is constructed for an event. The key elements are the sample space, the sigma, and the probability measure, which define the probabilistic structure of the problem.
+
+</p>
 </body>
 </html>
